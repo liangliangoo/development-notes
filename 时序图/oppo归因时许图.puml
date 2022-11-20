@@ -1,0 +1,24 @@
+@startuml
+
+title oppo 归因 主要核心流程
+
+Oppo --> 暖聊 : 1.1、oppo将我们投放广告 产生数据上传至暖聊
+暖聊 -> Mysql: 1.2存储用户数据
+
+newpage
+
+暖聊 --> lanlingservices: 2.1上传用户行为数据
+activate lanlingservices
+lanlingservices --> MySQL: 2.2通过ouid 信息 判断是否通过 oppo品台注册用户 & 判断之前是否已经成功回传数据
+MySQL --> lanlingservices: 2.3返回结果
+lanlingservices -> lanlingservices: 2.4处理用户行为数据，获取接口签名
+lanlingservices -> lanlingservices: 2.5按照oppo定义数据加密格式 编码数据
+lanlingservices --> Oppo: 2.6上传oppo 
+activate Oppo
+Oppo --> lanlingservices: 2.7返回上传结果
+deactivate Oppo
+
+alt 成功
+    lanlingservices -> dataranger: 2.8埋点
+
+@enduml
