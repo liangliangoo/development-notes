@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  cassandra:
+    image: cassandra:latest
+    ports:
+      - 7001:7001
+      - 9042:9042
+    volumes:
+      - ./data/commitlog:/var/lib/cassandra/commitlog
+      - ./data/hints:/var/lib/cassandra/hints
+      - ./data:/var/lib/cassandra/data
+      - ./data/saved_caches:/var/lib/cassandra/saved_caches
+      - ./data/logs:/var/log/cassandra
