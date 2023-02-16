@@ -1,0 +1,4 @@
+1 通过 @EnableFeignCleints触发Spring应用程序对classpath中@FeignClient修饰类的扫描。
+2 解析到 @FeignClient 修饰类后，Feign框架通过扩展Spring Bean Deifinition的注册逻辑，最终注册一个FeignClientFacotoryBean进入Spring容器
+3 Spring容器在初始化其他用到 @FeignClient 接口的类时， 获得的是FeignClientFacotryBean产生的一个代理对象Proxy。
+4 基于Java原生的动态代理机制，针对Proxy的调用，都会被统一转发给Feign框架所定义的一个 InvocationHandler，由该Handler完成后续的HTTP转换，发送、接收以及HTTP响应的工作
