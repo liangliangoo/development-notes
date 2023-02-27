@@ -31,7 +31,7 @@ import java.util.Objects;
  */
 public class ExcelExportUtils {
 
-    protected static final Logger logger = LoggerFactory.getLogger(ExcelExportUtils.class);
+        protected static final Logger logger = LoggerFactory.getLogger(ExcelExportUtils.class);
 
     /**
      * @param sheetName
@@ -68,6 +68,27 @@ public class ExcelExportUtils {
             }
         }
         return wb;
+    }
+
+
+    /**
+     * 设置 http 响应头
+     *
+     * @param response
+     * @param fileName
+     */
+    public static void setResponseHeader(HttpServletResponse response, String fileName) {
+        try {
+            // 设置响应头
+            response.reset();
+            //设置响应头
+            response.setContentType("application/x-download");
+            fileName = "活动榜单 " + System.currentTimeMillis() + ".xls";
+            fileName = new String(fileName.getBytes(), "ISO-8859-1");
+            response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+        } catch (Exception e) {
+            logger.error("setResponseHeader e {}", e);
+        }
     }
 
 }
